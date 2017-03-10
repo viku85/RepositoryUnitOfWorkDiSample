@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace MyProject.Interface.Infrastructure
 {
@@ -7,14 +8,8 @@ namespace MyProject.Interface.Infrastructure
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
-        /// <summary>
-        /// Regenerates the context.
-        /// </summary>
-        void RegenerateContext();
+        int Save();
 
-        /// <summary>
-        /// Saves Context changes.
-        /// </summary>
-        void Save();
+        Task<int> SaveAsync();
     }
 }

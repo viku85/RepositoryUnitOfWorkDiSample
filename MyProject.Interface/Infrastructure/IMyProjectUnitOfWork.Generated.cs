@@ -1,4 +1,16 @@
-﻿ 
+﻿
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 
 
@@ -8,8 +20,6 @@
 //	   with default implementation.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using MyProject.Interface.Infrastructure;
-using System.Data.Entity;
 namespace MyProject.Interface.Infrastructure
 {
 
@@ -20,6 +30,7 @@ namespace MyProject.Interface.Infrastructure
 		: IUnitOfWork
 	{
 					
+
 		/// <summary>
 		/// Gets the BookRepository repository.
 		/// </summary>

@@ -1,39 +1,21 @@
-﻿using MyProject.Interface.Repository;
+﻿using Microsoft.EntityFrameworkCore;
+using MyProject.Interface.Repository;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace MyProject.DB.Repository
 {
-    /// <summary>
-    /// Base repository implementation to interacting with database through ORM
-    /// </summary>
-    /// <typeparam name="TModel">The type of the model.</typeparam>
-    public class Repository<TModel>
+    public class Repository<TModel, TContext>
         : IRepository<TModel> where TModel : class
+        where TContext : DbContext
     {
         /// <summary>
         /// DB context
         /// </summary>
-        protected readonly DbContext DbContext;
+        protected readonly TContext DbContext;
 
-        /// <summary>
-        /// Gets the context.
-        /// </summary>
-        /// <typeparam name="T">Db Model</typeparam>
-        /// <returns></returns>
-        protected T GetContext<T>() where T
-            : class
-        {
-            return (T)Convert.ChangeType(DbContext, Type.GetTypeCode(typeof(T)));
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{TModel}"/> class.
-        /// </summary>
-        /// <param name="dbContext">The DB context.</param>
-        protected Repository(DbContext dbContext)
+        protected Repository(TContext dbContext)
         {
             DbContext = dbContext;
         }

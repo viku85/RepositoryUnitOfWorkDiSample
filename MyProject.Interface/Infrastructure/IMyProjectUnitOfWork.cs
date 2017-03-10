@@ -1,4 +1,6 @@
-﻿namespace MyProject.Interface.Infrastructure
+﻿using MyProject.Interface.Repository;
+
+namespace MyProject.Interface.Infrastructure
 {
     /// <summary>
     /// MyProject specific Unit Of Work

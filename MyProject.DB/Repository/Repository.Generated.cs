@@ -1,4 +1,16 @@
-﻿ 
+﻿
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 
 //------------------------------------------------------------------------------
@@ -8,23 +20,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.Data.Entity;
+
+using Microsoft.EntityFrameworkCore;
+using MyProject.DB.Infrastructure;
 namespace MyProject.DB.Repository
 {
     /// <summary>
     /// Interface for interacting with <see cref="MyProject.Model.DataModel.BookRepository"/>
     /// </summary>
 	public partial class BookRepository
-		: Repository<MyProject.Model.DataModel.Book>,
+		: Repository<MyProject.Model.DataModel.Book, MyProjectContext>,
 		 MyProject.Interface.Repository.IBookRepository
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="BookRepository"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
-        public BookRepository(DbContext dbContext)
+        public BookRepository(MyProjectContext dbContext)
             : base(dbContext)
         {
         }
 	}
 }
+

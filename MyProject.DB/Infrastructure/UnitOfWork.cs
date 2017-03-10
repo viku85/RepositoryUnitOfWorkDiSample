@@ -1,6 +1,7 @@
-﻿using MyProject.Interface.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using MyProject.Interface.Infrastructure;
 using System;
-using System.Data.Entity;
+using System.Threading.Tasks;
 
 namespace MyProject.DB.Infrastructure
 {
@@ -8,28 +9,11 @@ namespace MyProject.DB.Infrastructure
     /// Unit of work implementation for having single instance of context and doing DB operation as transaction
     /// </summary>
     /// <typeparam name="TContext">The type of the context.</typeparam>
-    public abstract class UnitOfWork<TContext> : IUnitOfWork
+    public abstract class UnitOfWork<TContext>
+        : IUnitOfWork
         where TContext : DbContext
     {
-        /// <summary>
-        /// DB context
-        /// </summary>
-        private TContext _dbContext;
-
-        /// <summary>
-        /// The DB context factory
-        /// </summary>
-        private readonly IContextFactory<TContext> _dbContextFactory;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork{TContext}"/> class.
-        /// </summary>
-        /// <param name="dbContextFactory">The db context factory.</param>
-        protected UnitOfWork(IContextFactory<TContext> dbContextFactory)
-            : this(dbContextFactory.Create())
-        {
-            _dbContextFactory = dbContextFactory;
-        }
+        private readonly TContext DbContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnitOfWork{TContext}"/> class.
@@ -37,40 +21,29 @@ namespace MyProject.DB.Infrastructure
         /// <param name="context">The context.</param>
         protected UnitOfWork(TContext context)
         {
-            _dbContext = context;
+            DbContext = context;
         }
 
         /// <summary>
         /// Gets the context.
         /// </summary>
         /// <value>The context.</value>
-        public virtual TContext Context
+        internal virtual TContext Context
         {
             get
             {
-                return _dbContext;
+                return DbContext;
             }
         }
 
-        /// <summary>
-        /// Regenerates the context.
-        /// </summary>
-        /// <remarks>WARNING: Calling with dirty context will save changes automatically</remarks>
-        public void RegenerateContext()
+        public int Save()
         {
-            if (_dbContext != null)
-            {
-                Save();
-            }
-            _dbContext = _dbContextFactory.Create();
+            return Context.SaveChanges();
         }
 
-        /// <summary>
-        /// Saves Context changes.
-        /// </summary>
-        public void Save()
+        public Task<int> SaveAsync()
         {
-            Context.SaveChanges();
+            return Context.SaveChangesAsync();
         }
 
         #region " Dispose "
@@ -90,9 +63,9 @@ namespace MyProject.DB.Infrastructure
             {
                 if (disposing)
                 {
-                    if (_dbContext != null)
+                    if (DbContext != null)
                     {
-                        _dbContext.Dispose();
+                        DbContext.Dispose();
                     }
                 }
             }

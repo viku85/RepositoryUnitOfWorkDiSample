@@ -1,10 +1,15 @@
-﻿using MyProject.Interface.Infrastructure;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MyProject.Interface.Infrastructure;
 using MyProject.Web.Base;
-using System.Web.Mvc;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace MyProject.Web.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController
+        : BaseController
     {
         public HomeController(IMyProjectUnitOfWork unitOfWork)
             : base(unitOfWork)
@@ -24,20 +29,6 @@ namespace MyProject.Web.Controllers
             {
                 MyProjectUnitOfWork.Save();
             }
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

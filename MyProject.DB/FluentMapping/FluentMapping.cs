@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MyProject.DB.FluentMapping;
+using Microsoft.EntityFrameworkCore;
+using MyProject.Model.DataModel;
 
 namespace MyProject.DB.FluentMapping
 {
     public class FluentMapping
     {
-        public FluentMapping(DbModelBuilder dbModelBuilder)
+        public FluentMapping(ModelBuilder dbModelBuilder)
         {
-            dbModelBuilder.Configurations.Add(new BookMapping());
+            new BookMapping(dbModelBuilder.Entity<Book>());
         }
     }
 }

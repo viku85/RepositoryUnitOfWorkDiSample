@@ -47,21 +47,22 @@ foreach (var type in types)
 	var name = type.Name + "Repository";
 	var fullName = nameSpace + "." + name;
 #>
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using MyProject.DB.Infrastructure;
 namespace <#= nameSpace #>
 {
     /// <summary>
     /// Interface for interacting with <see cref="<#= type.FullName #>Repository"/>
     /// </summary>
 	public partial class <#= type.Name #>Repository
-		: Repository<<#= type.FullName #>>,
+		: Repository<<#= type.FullName #>, MyProjectContext>,
 		 <#= interfaceNameSpace #>.I<#=name#>
 	{
         /// <summary>
         /// Initializes a new instance of the <see cref="<#= name #>"/> class.
         /// </summary>
         /// <param name="dbContext">The database context.</param>
-        public <#=name#>(DbContext dbContext)
+        public <#=name#>(MyProjectContext dbContext)
             : base(dbContext)
         {
         }

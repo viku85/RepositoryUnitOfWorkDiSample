@@ -1,5 +1,5 @@
-﻿using MyProject.Interface.Infrastructure;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyProject.Interface.Infrastructure;
 
 namespace MyProject.Web.Base
 {

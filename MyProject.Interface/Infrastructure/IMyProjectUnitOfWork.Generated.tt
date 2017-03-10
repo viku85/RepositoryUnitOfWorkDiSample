@@ -17,7 +17,6 @@
     var modelProjectNamespace = "MyProject.Model";
     var modelNamespace = "MyProject.Model.DataModel";
     var modelNamespaceReplace = "MyProject.Interface.Repository";
-    var repositoryNamespace = "MyProject.DB.Repository";
 
     CodeGenerationTools code = new CodeGenerationTools(this);
 	
@@ -38,8 +37,6 @@
 //	   with default implementation.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using MyProject.Interface.Infrastructure;
-using System.Data.Entity;
 namespace <#=        code.VsNamespaceSuggestion()#>
 {
 

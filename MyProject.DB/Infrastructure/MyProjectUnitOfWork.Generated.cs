@@ -1,4 +1,16 @@
-﻿ 
+﻿
+
+
+
+
+
+
+
+
+
+
+ 
+
 
 
 
@@ -8,8 +20,10 @@
 //	   with default implementation.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System;
 using MyProject.Interface.Infrastructure;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 namespace MyProject.DB.Infrastructure
 {
 
@@ -17,8 +31,23 @@ namespace MyProject.DB.Infrastructure
     /// MyProject implementation of Unit of Work
     /// </summary>
 	public sealed partial class MyProjectUnitOfWork
-		: UnitOfWork<DbContext>, IMyProjectUnitOfWork
+		: IMyProjectUnitOfWork
 	{
+        /// <summary>
+        /// The service provider
+        /// </summary>
+        private readonly IServiceProvider ServiceProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MyProjectUnitOfWork"/> class.
+        /// </summary>
+        /// <param name="dbContext">The database context.</param>
+        /// <param name="serviceProvider">The service provider.</param>
+        public MyProjectUnitOfWork(MyProjectContext dbContext, IServiceProvider serviceProvider)
+            : base(dbContext)
+        {
+            ServiceProvider = serviceProvider;
+        }
 					
 		/// <summary>
 		/// BookRepository holder
@@ -35,10 +64,8 @@ namespace MyProject.DB.Infrastructure
         { 
 	        get
 	        {
-			        return _bookRepository = 
-			        _bookRepository ?? new MyProject.DB.Repository.BookRepository(Context);
+				return ServiceProvider.GetService<MyProject.DB.Repository.BookRepository>();
 	        }
         }
-			}
-
+	}
 }

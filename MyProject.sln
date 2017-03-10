@@ -1,21 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyProject.Model", "MyProject.Model\MyProject.Model.csproj", "{D02DE8A6-361E-417E-AF28-D6FEE93E6264}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyProject.Web", "MyProject.Web\MyProject.Web.xproj", "{15086F1D-2E40-41CD-A772-33635184A761}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1BDD651B-89F9-4DF2-991B-D5DC5D802227} = {1BDD651B-89F9-4DF2-991B-D5DC5D802227}
+		{AAD92242-5702-4339-90AB-A94C4EEAE144} = {AAD92242-5702-4339-90AB-A94C4EEAE144}
+		{C045326A-922D-4650-AB20-D8E433A2EB0A} = {C045326A-922D-4650-AB20-D8E433A2EB0A}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyProject.DB", "MyProject.DB\MyProject.DB.csproj", "{39C7B9C0-66D5-4ABB-A91E-D503F28A53DA}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyProject.Model", "MyProject.Model\MyProject.Model.xproj", "{AAD92242-5702-4339-90AB-A94C4EEAE144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyProject.Interface", "MyProject.Interface\MyProject.Interface.csproj", "{B98B4615-329B-40EC-8192-B8CFCF1CBE72}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyProject.Interface", "MyProject.Interface\MyProject.Interface.xproj", "{C045326A-922D-4650-AB20-D8E433A2EB0A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AAD92242-5702-4339-90AB-A94C4EEAE144} = {AAD92242-5702-4339-90AB-A94C4EEAE144}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyProject.Web", "MyProject.Web\MyProject.Web.csproj", "{3F2FBCC4-E212-4281-9442-EA0C1B45F861}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{ABD8E6A4-EB34-419B-AB46-5EB503509D51}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MyProject.DB", "MyProject.DB\MyProject.DB.xproj", "{1BDD651B-89F9-4DF2-991B-D5DC5D802227}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AAD92242-5702-4339-90AB-A94C4EEAE144} = {AAD92242-5702-4339-90AB-A94C4EEAE144}
+		{C045326A-922D-4650-AB20-D8E433A2EB0A} = {C045326A-922D-4650-AB20-D8E433A2EB0A}
 	EndProjectSection
 EndProject
 Global
@@ -24,22 +29,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D02DE8A6-361E-417E-AF28-D6FEE93E6264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D02DE8A6-361E-417E-AF28-D6FEE93E6264}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D02DE8A6-361E-417E-AF28-D6FEE93E6264}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D02DE8A6-361E-417E-AF28-D6FEE93E6264}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39C7B9C0-66D5-4ABB-A91E-D503F28A53DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39C7B9C0-66D5-4ABB-A91E-D503F28A53DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39C7B9C0-66D5-4ABB-A91E-D503F28A53DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39C7B9C0-66D5-4ABB-A91E-D503F28A53DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B98B4615-329B-40EC-8192-B8CFCF1CBE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B98B4615-329B-40EC-8192-B8CFCF1CBE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B98B4615-329B-40EC-8192-B8CFCF1CBE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B98B4615-329B-40EC-8192-B8CFCF1CBE72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F2FBCC4-E212-4281-9442-EA0C1B45F861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F2FBCC4-E212-4281-9442-EA0C1B45F861}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F2FBCC4-E212-4281-9442-EA0C1B45F861}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F2FBCC4-E212-4281-9442-EA0C1B45F861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15086F1D-2E40-41CD-A772-33635184A761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15086F1D-2E40-41CD-A772-33635184A761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15086F1D-2E40-41CD-A772-33635184A761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15086F1D-2E40-41CD-A772-33635184A761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD92242-5702-4339-90AB-A94C4EEAE144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD92242-5702-4339-90AB-A94C4EEAE144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD92242-5702-4339-90AB-A94C4EEAE144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD92242-5702-4339-90AB-A94C4EEAE144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C045326A-922D-4650-AB20-D8E433A2EB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C045326A-922D-4650-AB20-D8E433A2EB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C045326A-922D-4650-AB20-D8E433A2EB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C045326A-922D-4650-AB20-D8E433A2EB0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BDD651B-89F9-4DF2-991B-D5DC5D802227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BDD651B-89F9-4DF2-991B-D5DC5D802227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BDD651B-89F9-4DF2-991B-D5DC5D802227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BDD651B-89F9-4DF2-991B-D5DC5D802227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
