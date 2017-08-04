@@ -1,19 +1,8 @@
 ﻿<#@ template  debug="true" hostSpecific="true" #>
 <#@ output extension=".cs" #>
-<#@ Assembly Name="System.Core" #>
-<#@ import namespace="System" #>
-<#@ import namespace="EnvDTE" #>
 <#@ import namespace="EnvDTE80" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Diagnostics" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #> 
 <#@ include file="EF.Utility.CS.ttinclude"#>
-<#@ include file="../../T4Plugin/VisualStudioAutomationHelper.ttinclude" #>
-<#@ include file="../../T4Plugin/MultiOutput.ttinclude" #>
-<#
+<#@ include file="../../T4Plugin/VisualStudioAutomationHelper.ttinclude" #><#
     var modelProjectNamespace = "MyProject.Model";
     var modelNamespace = "MyProject.Model.DataModel";
     var modelNamespaceReplace = "MyProject.Interface.Repository";
@@ -24,11 +13,10 @@
     var codeDom = CodeDomProvider.CreateProvider("C#");
 	
     var modelProject = VisualStudioHelper.GetProject(modelProjectNamespace);
-    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, false);
+    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, true);
 
     var types = (from modelClass in allModelClasses.OfType<CodeClass2>()
-            where modelClass.FullName.StartsWith(modelNamespace) && 
-                !modelClass.FullName.EndsWith("MetadataSource")
+            where modelClass.FullName.StartsWith(modelNamespace)
             select modelClass
         ).OrderBy(clas=>clas.FullName);
 #>
@@ -40,8 +28,8 @@
 //------------------------------------------------------------------------------
 using System;
 using MyProject.Interface.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 namespace <#=        code.VsNamespaceSuggestion()#>
 {
 
@@ -66,21 +54,16 @@ namespace <#=        code.VsNamespaceSuggestion()#>
         {
             ServiceProvider = serviceProvider;
         }
-					<#
+<#
     foreach (var type in types)
     {
-        var nameSpace = type.Namespace.Name.Replace(modelNamespace,repositoryNamespace);
-        var interfaceNameSpace = type.Namespace.Name.Replace(modelNamespace,modelNamespaceReplace);
+        var nameSpace = type.Namespace.FullName.Replace(modelNamespace,repositoryNamespace);
+        var interfaceNameSpace = type.Namespace.FullName.Replace(modelNamespace,modelNamespaceReplace);
 
         var name = type.Name + "Repository";
         var fullName = nameSpace + "." + name;
 
-		var interfaceFullName = $"{interfaceNameSpace}.I{type.Name}Repository";
-			#>
-		/// <summary>
-		/// <#=            name #> holder
-		/// </summary>
-        private <#=            fullName #> _<#=            code.CamelCase(name) #>;
+		var interfaceFullName = $"{interfaceNameSpace}.I{type.Name}Repository";#>
 
         /// <summary>
         /// Gets the <#=            type.Name #>Repository repository.
@@ -90,9 +73,10 @@ namespace <#=        code.VsNamespaceSuggestion()#>
         /// </value>
         <#=interfaceFullName#> IMyProjectUnitOfWork.<#=            type.Name #>Repository 
         { 
+			[DebuggerStepThrough]
 	        get
 	        {
-				return ServiceProvider.GetService<<#=            fullName #>>();
+				return ServiceProvider.GetService<<#=            interfaceFullName #>>();
 	        }
         }
 	<#}

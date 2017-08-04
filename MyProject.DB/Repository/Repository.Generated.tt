@@ -23,11 +23,10 @@
 	var codeDom = CodeDomProvider.CreateProvider("C#");
 
     var modelProject = VisualStudioHelper.GetProject(projectNamespace);
-    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, false);
+    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, true);
 
 	var types = (from modelClass in allModelClasses.OfType<CodeClass2>()
-                where modelClass.FullName.StartsWith(modelNamespace) && 
-                !modelClass.FullName.EndsWith("MetadataSource")
+                where modelClass.FullName.StartsWith(modelNamespace)
                 select modelClass
                 ).OrderBy(clas=>clas.FullName);
 #>
@@ -41,8 +40,8 @@
 <#
 foreach (var type in types)
 {
-	var nameSpace = type.Namespace.Name.Replace(modelNamespace, repositoryNameSpace);
-	var interfaceNameSpace = type.Namespace.Name.Replace(modelNamespace, modelNamespaceReplace);
+	var nameSpace = type.Namespace.FullName.Replace(modelNamespace, repositoryNameSpace);
+	var interfaceNameSpace = type.Namespace.FullName.Replace(modelNamespace, modelNamespaceReplace);
 
 	var name = type.Name + "Repository";
 	var fullName = nameSpace + "." + name;

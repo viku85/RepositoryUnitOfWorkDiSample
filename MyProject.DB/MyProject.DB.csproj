@@ -1,0 +1,64 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>MyProject.DB</AssemblyName>
+    <PackageId>MyProject.DB</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyProject.Interface\MyProject.Interface.csproj" />
+    <ProjectReference Include="..\MyProject.Model\MyProject.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="1.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Infrastructure\Configuration\ExtensionUnitOfWorkService.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtensionUnitOfWorkService.cs</LastGenOutput>
+    </None>
+    <None Update="Infrastructure\MyProjectUnitOfWork.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MyProjectUnitOfWork.Generated.cs</LastGenOutput>
+    </None>
+    <None Update="Repository\Repository.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Repository.Generated.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Infrastructure\Configuration\ExtensionUnitOfWorkService.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExtensionUnitOfWorkService.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Infrastructure\MyProjectUnitOfWork.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MyProjectUnitOfWork.Generated.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Repository\Repository.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Repository.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

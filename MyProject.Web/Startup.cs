@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyProject.DB.Infrastructure;
 using MyProject.DB.Infrastructure.Configuration;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyProject.Web
 {
@@ -30,7 +25,7 @@ namespace MyProject.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDb(Configuration, Configuration.GetConnectionString("SqlDatabaseDevelopment"));
+            services.AddDb(Configuration.GetConnectionString("SqlDatabaseDevelopment"));
 
             // Add framework services.
             services.AddMvc();
@@ -44,18 +39,18 @@ namespace MyProject.Web
 
             if (env.IsDevelopment())
             {
+                // Migration and Seed only on development mode.
+                app.ApplicationServices.InitDb(
+                    service =>
+                        service.GetService<IHostingEnvironment>().ContentRootPath,
+                    seedDb: true);
+
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
-
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
-            .CreateScope())
-            {
-                serviceScope.ServiceProvider.GetService<MyProjectContext>();
             }
 
             app.UseStaticFiles();

@@ -1,19 +1,9 @@
 ﻿<#@ template  debug="true" hostSpecific="true" #>
 <#@ output extension=".cs" #>
-<#@ Assembly Name="System.Core" #>
-<#@ import namespace="System" #>
-<#@ import namespace="EnvDTE" #>
 <#@ import namespace="EnvDTE80" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.IO" #>
-<#@ import namespace="System.Diagnostics" #>
 <#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #> 
 <#@ include file="EF.Utility.CS.ttinclude"#>
-<#@ include file="../../T4Plugin/VisualStudioAutomationHelper.ttinclude" #>
-<#@ include file="../../T4Plugin/MultiOutput.ttinclude" #>
-<#
+<#@ include file="../../T4Plugin/VisualStudioAutomationHelper.ttinclude" #><#
     var modelProjectNamespace = "MyProject.Model";
     var modelNamespace = "MyProject.Model.DataModel";
     var modelNamespaceReplace = "MyProject.Interface.Repository";
@@ -23,11 +13,10 @@
     var codeDom = CodeDomProvider.CreateProvider("C#");
 	
     var modelProject = VisualStudioHelper.GetProject(modelProjectNamespace);
-    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, false);
+    var allModelClasses = VisualStudioHelper.GetAllCodeElementsOfType(modelProject.CodeModel.CodeElements, EnvDTE.vsCMElement.vsCMElementClass, true);
 
     var types = (from modelClass in allModelClasses.OfType<CodeClass2>()
-            where modelClass.FullName.StartsWith(modelNamespace) && 
-                !modelClass.FullName.EndsWith("MetadataSource")
+            where modelClass.FullName.StartsWith(modelNamespace)
             select modelClass
         ).OrderBy(clas=>clas.FullName);
 #>
@@ -48,11 +37,10 @@ namespace <#=        code.VsNamespaceSuggestion()#>
 	{
 					<#
 			foreach (CodeClass2 modelClass in allModelClasses
-                .OfType<CodeClass2>().Where(clas=>clas.FullName.StartsWith(modelNamespace) && 
-                !clas.FullName.EndsWith("MetadataSource")
+                .OfType<CodeClass2>().Where(clas=>clas.FullName.StartsWith(modelNamespace)
                 ).OrderBy(clas=>clas.FullName))
 			{    
-        var nameSpace = modelClass.Namespace.Name.Replace(modelNamespace,modelNamespaceReplace);
+        var nameSpace = modelClass.Namespace.FullName.Replace(modelNamespace,modelNamespaceReplace);
 			#>
 
 		/// <summary>

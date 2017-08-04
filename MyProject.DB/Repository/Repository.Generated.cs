@@ -1,16 +1,4 @@
-﻿
-
-
-
-
-
-
-
-
-
-
- 
-
+﻿ 
 
 
 //------------------------------------------------------------------------------
@@ -19,7 +7,6 @@
 //	   with default implementation.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 
 using Microsoft.EntityFrameworkCore;
 using MyProject.DB.Infrastructure;
@@ -42,4 +29,3 @@ namespace MyProject.DB.Repository
         }
 	}
 }
-
